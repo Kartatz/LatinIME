@@ -30,11 +30,11 @@ jobs:
         curl --connect-timeout '10' --retry '15' --retry-all-errors --fail --silent --location --url "${PINO_URL}" --output "${PINO_TARBALL}"
         tar --directory="$(dirname "${PINO_TARBALL}")" --extract --file="${PINO_TARBALL}"
         
-        export PINO_HOME='/tmp/pino'
-        export PATH="${PINO_HOME}/bin:${PATH}"
+        echo 'PINO_HOME=/tmp/pino' >> "${GITHUB_ENV}"
+        echo '/tmp/pino/bin' >> "${GITHUB_PATH}"
     - name: Patch NDK
       run: |
-        ${PINO_HOME}/bin/ndk-patch
+        ndk-patch
     - name: Build Android project
       run: |
         ./gradlew --warning-mode 'all' --no-daemon 'assembleRelease'
