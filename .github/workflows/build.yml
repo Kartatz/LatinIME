@@ -23,9 +23,9 @@ jobs:
         ./gradlew clean
     - name: Install Pino
       run: |
-        declare -r PINO_TAG="$(jq --raw-output '.tag_name' <<< "$(curl --connect-timeout '10' --retry '15' --retry-all-errors --fail --silent --url 'https://api.github.com/repos/AmanoTeam/Pino/releases/latest')")"
+        declare -r PINO_TAG='latest'
         declare -r PINO_TARBALL='/tmp/toolchain.tar.xz'
-        declare -r PINO_URL="https://github.com/AmanoTeam/Pino/releases/download/${PINO_TAG}/x86_64-unknown-linux-gnu.tar.xz"
+        declare -r PINO_URL="https://github.com/AmanoTeam/Pino/releases/${PINO_TAG}/download/x86_64-unknown-linux-gnu.tar.xz"
         
         curl --connect-timeout '10' --retry '15' --retry-all-errors --fail --silent --location --url "${PINO_URL}" --output "${PINO_TARBALL}"
         tar --directory="$(dirname "${PINO_TARBALL}")" --extract --file="${PINO_TARBALL}"
@@ -34,7 +34,7 @@ jobs:
         export PATH="${PINO_HOME}/bin:${PATH}"
     - name: Patch NDK
       run: |
-        ndk-patch
+        ${PINO_HOME}/bin/ndk-patch
     - name: Build Android project
       run: |
         ./gradlew --warning-mode 'all' --no-daemon 'assembleRelease'
