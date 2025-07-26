@@ -29,7 +29,7 @@ jobs:
         
         # curl --connect-timeout '10' --retry '15' --retry-all-errors --fail --silent --location --url "${PINO_URL}" --output "${PINO_TARBALL}"
         # tar --directory="$(dirname "${PINO_TARBALL}")" --extract --file="${PINO_TARBALL}"
-        pushd /tmp && wget https://nightly.link/AmanoTeam/Pino/actions/runs/16535028029/x86_64-unknown-linux-gnu.zip && unzip x86_64-unknown-linux-gnu.zip && tar xvf x86_64-unknown-linux-gnu.tar.xz && pushd
+        pushd /tmp && wget https://nightly.link/AmanoTeam/Pino/actions/runs/16532213304/x86_64-unknown-linux-gnu.zip && unzip x86_64-unknown-linux-gnu.zip && tar xvf x86_64-unknown-linux-gnu.tar.xz && pushd
         
         echo 'PINO_HOME=/tmp/pino' >> "${GITHUB_ENV}"
         echo '/tmp/pino/bin' >> "${GITHUB_PATH}"
